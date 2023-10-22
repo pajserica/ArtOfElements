@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class lerp : MonoBehaviour
 {
-
+    [SerializeField] Vector3 lala = new Vector3("abcdefg".GetHashCode(), "abcdefg".GetHashCode(), "abcdefg".GetHashCode());
+    
     [SerializeField] Vector3 startPos;
     [SerializeField] Vector3 endPos;
     float lerpSpeed = 0.5f;
@@ -17,6 +18,8 @@ public class lerp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("neces me izbrisati ha ha ha");
+        
         Vector3 abcdefghijklmonp = Vector3.zero;
         float blend = Time.deltaTime * lerpSpeed;
         Debug.Log(blend);
