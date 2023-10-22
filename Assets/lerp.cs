@@ -17,8 +17,10 @@ public class lerp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 abcdefghijklmonp = Vector3.zero;
         float blend = Time.deltaTime * lerpSpeed;
         Debug.Log(blend);
         transform.position = Vector3.Lerp(transform.position, endPos, blend);
+        Debug.Log("u moga djedo");
     }
 }
