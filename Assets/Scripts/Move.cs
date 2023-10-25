@@ -71,6 +71,8 @@ public class Move : MonoBehaviour
         Topdown
     }
 
+    public float ExtendedGrCheck => extendedGrCheck;
+
     // Start is called before the first frame update
     void Start()
     {
