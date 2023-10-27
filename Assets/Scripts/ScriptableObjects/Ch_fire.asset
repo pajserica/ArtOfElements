@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charObject: {fileID: 4311744807181488295, guid: c31c60ddd8bac1d4d87791b7d713bd5a,
     type: 3}
+  ability: {fileID: 4217054189634295912, guid: ccaa74c226d083a48b47d6f9a853deaf, type: 3}
+  abilityAim: {fileID: 893242959557183114, guid: 08962dcfd95e7a64b9ac4c034c06083b,
+    type: 3}
   changeChar: 50
   walkSpeed: 5
   sprintSpeed: 5
@@ -24,3 +27,4 @@ MonoBehaviour:
   jumpCooldown: 2
   airSpeedMultiplier: 0.5
   crouchSpeed: 3
+  id: 0

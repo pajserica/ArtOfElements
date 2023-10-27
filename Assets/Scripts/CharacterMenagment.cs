@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeCharacter : MonoBehaviour
+public class CharacterMenagment : MonoBehaviour
 {
     public SO_CharacterData waterCharacter;
     public SO_CharacterData fireCharacter;
@@ -24,6 +24,13 @@ public class ChangeCharacter : MonoBehaviour
         if(Input.GetKeyDown(fireCharacter.changeChar)) moveScript.UpdateStats(fireCharacter);
         if(Input.GetKeyDown(airCharacter.changeChar)) moveScript.UpdateStats(airCharacter);
         if(Input.GetKeyDown(earthCharacter.changeChar)) moveScript.UpdateStats(earthCharacter);
+
+        // if(Input.GetKeyDown(placeAbKey)){
+        //     if(id == 1)
+        //         character.PlaceAbility(airCharacter);
+        //     if(id == 2)
+        //         character.PlaceAbility(fireCharacter);
+        // }
         
     }
 

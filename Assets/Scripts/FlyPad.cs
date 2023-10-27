@@ -24,8 +24,11 @@ public class FlyPad : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        
-        
+    
+        if(other.gameObject.TryGetComponent(out PlaceAbility ability)){
+            
+        }
+
         if (other.attachedRigidbody)
         {
             other.attachedRigidbody.AddForce(Vector3.up * force);

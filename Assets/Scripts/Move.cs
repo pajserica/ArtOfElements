@@ -45,13 +45,14 @@ public class Move : MonoBehaviour
 
     [Header("References")]
     [SerializeField] SO_CharacterData defaultCharacter;
+    public GameObject ability;
     [SerializeField] GameObject mainCamObj;
     [SerializeField] Transform playerObj;
     [SerializeField] Transform orientation;
 
     float horizontalInput;
     float verticalInput;
-    public int test;
+    public int whatElement;
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -220,6 +221,8 @@ public class Move : MonoBehaviour
         jumpCooldown = character.jumpCooldown;
         airSpeedMultiplier = character.airSpeedMultiplier;
         crouchSpeed = character.crouchSpeed;
+        whatElement = character.id;
+        ability = character.ability;
         // rb.mass = character.mass;
         if(playerObj.transform.childCount != 0)
             Destroy(playerObj.transform.GetChild(0).gameObject);

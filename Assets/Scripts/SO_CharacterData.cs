@@ -7,6 +7,9 @@ public class SO_CharacterData : ScriptableObject
 {
 
     public GameObject charObject;
+    public GameObject ability;
+    // Obj When aiming
+    public GameObject abilityAim;
 
     public KeyCode changeChar = KeyCode.Alpha1;
 
@@ -26,5 +29,12 @@ public class SO_CharacterData : ScriptableObject
 
     [Header("Crouching")]
     public float crouchSpeed;
+
+    public int id;
+
+    public void PlaceAbility(GameObject gameObj){
+        
+        // Instantiate(gameObj, transform.position, transform.rotation);
+    }
  
 }
