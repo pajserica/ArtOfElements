@@ -6,7 +6,7 @@ public class Move : MonoBehaviour
 {
     [Header("Movement")]
     float moveSpeed;
-    [SerializeField] float walkSpeed;
+    public float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] float groundDrag;
@@ -23,7 +23,7 @@ public class Move : MonoBehaviour
      float startYScale;
  
     [Header("CameraSwitch")]
-    public Transform combatLookAt;
+    [SerializeField] Transform combatLookAt;
     [SerializeField] GameObject basicCam;
     [SerializeField] GameObject topDownCam;
     [SerializeField] GameObject combatCam;
@@ -36,22 +36,22 @@ public class Move : MonoBehaviour
     bool grounded;
 
     [Header("KeyBinds")]
-    public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
-    public KeyCode BasicCamKey = KeyCode.Alpha1;
-    public KeyCode TopDownCamKey = KeyCode.Alpha2;
-    public KeyCode CombatCamKey = KeyCode.Alpha3;
+    [SerializeField] KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
+    [SerializeField] KeyCode ChangeCamKey = KeyCode.V;
+    private int camNum;
 
 
     [Header("References")]
+    [SerializeField] SO_CharacterData defaultCharacter;
     [SerializeField] GameObject mainCamObj;
-    public Transform playerObj;
+    [SerializeField] Transform playerObj;
     [SerializeField] Transform orientation;
 
     float horizontalInput;
     float verticalInput;
-    
+    public int test;
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -77,13 +77,18 @@ public class Move : MonoBehaviour
         //invisible cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false; 
-        //
+        // cam
+        camNum = 1;
+
         startYScale = transform.localScale.y;
 
         readyToJump = true;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        // Set Default Character
+        UpdateStats(defaultCharacter);
+
     }
 
     void FixedUpdate(){
@@ -106,9 +111,9 @@ public class Move : MonoBehaviour
         if(Input.GetKeyUp(crouchKey)){
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
-        if(Input.GetKeyDown(BasicCamKey)) SwitchCameraView(CameraState.Basic);
-        if(Input.GetKeyDown(TopDownCamKey)) SwitchCameraView(CameraState.Topdown);
-        if(Input.GetKeyDown(CombatCamKey)) SwitchCameraView(CameraState.Combat);
+        if(Input.GetKeyDown(ChangeCamKey)) SwitchCameraView(++camNum);
+        // if(Input.GetKeyDown(TopDownCamKey)) SwitchCameraView(CameraState.Topdown);
+        // if(Input.GetKeyDown(CombatCamKey)) SwitchCameraView(CameraState.Combat);
 
     }
 
@@ -170,23 +175,32 @@ public class Move : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    private void SwitchCameraView(CameraState newView){
+
+    private void SwitchCameraView(int num){
         basicCam.SetActive(false);
         topDownCam.SetActive(false);
         combatCam.SetActive(false);
+        if(num > 3){
+            camNum = 1;
+            num = 1;
+        }
 
-        if(newView == CameraState.Basic){
+        if(num == 1){
             basicCam.SetActive(true);
             mainCamObj = basicCam;
-        }if(newView == CameraState.Topdown){
+            camState = CameraState.Basic;
+        }else if(num == 2){
             topDownCam.SetActive(true);
             mainCamObj = topDownCam;
-        }if(newView == CameraState.Combat){
+            camState = CameraState.Topdown;
+        }else if(num == 3){
             combatCam.SetActive(true);
             mainCamObj = combatCam;
-        } 
+            camState = CameraState.Combat;
+        }
 
-        camState = newView;
+
+        
          
     }
 
@@ -194,7 +208,22 @@ public class Move : MonoBehaviour
         readyToJump = true;
     }
 
-    // Update is called once per frame
+    //Update all stats
+    public void UpdateStats(SO_CharacterData character){ // updating char stats
+        walkSpeed = character.walkSpeed;
+        sprintSpeed = character.sprintSpeed;
+        rotationSpeed = character.rotationSpeed;
+        groundDrag = character.groundDrag;
+        jumpForce = character.jumpForce;
+        jumpCooldown = character.jumpCooldown;
+        airSpeedMultiplier = character.airSpeedMultiplier;
+        crouchSpeed = character.crouchSpeed;
+        // rb.mass = character.mass;
+        if(playerObj.transform.childCount != 0)
+            Destroy(playerObj.transform.GetChild(0).gameObject);
+        Instantiate(character.charObject, playerObj.transform.position, playerObj.transform.rotation,  playerObj.transform);
+    }
+
     void Update()
     {
         // ground check
@@ -207,7 +236,7 @@ public class Move : MonoBehaviour
         SpeedControl();
         RotatePlayer();
         MoveStateHandler();
-        
+        // Debug.Log(this);
         if(grounded)
             rb.drag = groundDrag;
         else
