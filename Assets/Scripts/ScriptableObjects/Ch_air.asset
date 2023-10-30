@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charObject: {fileID: 3863214910018015872, guid: bc552955cb106924bbd7ffd1e85a3f9e,
     type: 3}
-  ability: {fileID: 4279612272238229238, guid: b701ffb14d4b92d4ca75901e97fb3d5a, type: 3}
-  abilityAim: {fileID: 6524231357388258644, guid: f9692d33f2ec9de4e9f56cff10a9f11b,
+  ability: {fileID: 8893479351541945547, guid: f9692d33f2ec9de4e9f56cff10a9f11b, type: 3}
+  abilityAim: {fileID: 6130746659228467713, guid: e657ddd6498870148a797400ea7c4807,
     type: 3}
+  preActiveMat: {fileID: 2100000, guid: 4c19a0c9a82d8db4b87d69299199f710, type: 2}
+  activeMat: {fileID: 0}
   changeChar: 49
   walkSpeed: 7
   sprintSpeed: 14

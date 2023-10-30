@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4427062615353434336}
   - component: {fileID: 4217064266683014394}
   - component: {fileID: 3981313693636709149}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: firePref
   m_TagString: Untagged
   m_Icon: {fileID: 0}

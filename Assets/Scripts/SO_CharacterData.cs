@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "NewCharacter")]
 public class SO_CharacterData : ScriptableObject
 {
-
+    [Header("Refs")]
     public GameObject charObject;
     public GameObject ability;
     // Obj When aiming
     public GameObject abilityAim;
+    public Material preActiveMat;
+    public Material activeMat;
 
     public KeyCode changeChar = KeyCode.Alpha1;
 

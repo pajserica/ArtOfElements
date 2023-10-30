@@ -5,19 +5,20 @@ using UnityEngine;
 public class PlaceAbility : MonoBehaviour
 {
 
-    [SerializeField] SO_CharacterData character;
     [SerializeField] KeyCode placeAbKey = KeyCode.Mouse0;
     [SerializeField] KeyCode aimAbilityKey = KeyCode.Mouse1;
     [SerializeField] Camera cam;
-    [SerializeField] Material aimMaterial;
-    [SerializeField] Material defaultMaterial;
     [SerializeField] SO_CharacterData air;
     [SerializeField] SO_CharacterData water;
     [SerializeField] SO_CharacterData fire;
-    private GameObject placeholder;
+    private GameObject tempPlaceholder;
+    private GameObject trueAbility;
     private GameObject airAbilityTemp;
     private GameObject waterAbilityTemp;
     private GameObject fireAbilityTemp;
+    //to test transition from aether to default elements( need better solution)
+    private int badTest;
+
 
     // layer mask for raycast ignore.. 000000111000...
     int layerMaskCombined = (1 << 10) | (1 << 11) | (1 << 12) | (1 << 2);
@@ -31,6 +32,8 @@ public class PlaceAbility : MonoBehaviour
         airAbilityTemp.SetActive(false);
         waterAbilityTemp.SetActive(false);
         fireAbilityTemp.SetActive(false);
+
+        badTest = 0;
     }
 
     // Update is called once per frame
@@ -43,6 +46,9 @@ public class PlaceAbility : MonoBehaviour
             {
                 
                 bool letsBuild = true;
+                airAbilityTemp.SetActive(false);
+                waterAbilityTemp.SetActive(false);
+                fireAbilityTemp.SetActive(false);
                 
                 switch(hit.collider.gameObject.layer){
                     case 2:{
@@ -53,17 +59,20 @@ public class PlaceAbility : MonoBehaviour
                         break;
                     }
                     case 10: {
-                        placeholder = air.ability;
+                        trueAbility = air.ability;
+                        tempPlaceholder = air.abilityAim;
                         airAbilityTemp.SetActive(true);
                         break;
                     }
                     case 11: {
-                        placeholder = fire.ability;
+                        trueAbility = fire.ability;
+                        tempPlaceholder = fire.abilityAim;
                         fireAbilityTemp.SetActive(true);
                         break;
                     }
                     case 12: {
-                        placeholder = water.ability;
+                        trueAbility = water.ability;
+                        tempPlaceholder = water.abilityAim;
                         waterAbilityTemp.SetActive(true);
                         break;
                     }
@@ -77,19 +86,33 @@ public class PlaceAbility : MonoBehaviour
 
                 if(letsBuild){
                     transform.position = hit.point;
-                    if(Input.GetKeyDown(placeAbKey))
-                        Instantiate(placeholder, hit.point, transform.rotation);                  
+                    if(Input.GetKeyDown(placeAbKey)){
+                        GameObject temp = tempPlaceholder;
+                        temp.GetComponent<MeshRenderer>().material = air.preActiveMat;
+                        Instantiate(temp, hit.point, transform.rotation);
+                        Instantiate(trueAbility,hit.point, transform.rotation);
+                        if(badTest == 3)
+                            transform.parent.gameObject.GetComponent<CharacterManagement>().preRun = false;
+                        else
+                            badTest++;
+                        Debug.Log(badTest);
+                    }
                 }
                     
                 
                 
                   
                
+            }else{
+                airAbilityTemp.SetActive(false);
+                waterAbilityTemp.SetActive(false);
+                fireAbilityTemp.SetActive(false);
             }
-            // if(Input.GetKeyUp(aimAbilityKey)){
-
-            //     placeholder.SetActive(false);
-            // }
+        }
+        if(Input.GetKeyUp(aimAbilityKey)){
+            airAbilityTemp.SetActive(false);
+            waterAbilityTemp.SetActive(false);
+            fireAbilityTemp.SetActive(false);
         }
         
     }

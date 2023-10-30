@@ -2,23 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyPad : MonoBehaviour
+public class DeleteSelf : MonoBehaviour
 {
-    [SerializeField] int size;
-    [SerializeField] float force;
-
-
     // Start is called before the first frame update
     void Start()
     {
-        // transform.localScale =new Vector3(transform.localScale.x, size, transform.localScale.z);
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
+
     void OnTriggerStay(Collider other)
     {
     
@@ -28,7 +25,9 @@ public class FlyPad : MonoBehaviour
 
         if (other.attachedRigidbody)
         {
-            other.attachedRigidbody.AddForce(Vector3.up * force);
+            Destroy(this.gameObject);
+            Debug.Log("lalalal");
         }
     }
+
 }

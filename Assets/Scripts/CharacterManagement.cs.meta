@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 1b922d550102ca340bc435fc5ce059d8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - aetherCharacter: {fileID: 11400000, guid: 54465ba68330f6f44bd80d251212c9d6, type: 2}
+  - waterCharacter: {fileID: 11400000, guid: 8b4c8c5fb103c0f4e881e6bb41efb5fc, type: 2}
+  - fireCharacter: {fileID: 11400000, guid: ca1cc5708843af449a763abc74cabc8f, type: 2}
+  - airCharacter: {fileID: 11400000, guid: a4716bcd4624ec94b9c97429c105828b, type: 2}
+  - earthCharacter: {fileID: 11400000, guid: 85895d32dcae4db45957e852eeeab833, type: 2}
+  - moveScript: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

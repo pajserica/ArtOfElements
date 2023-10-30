@@ -44,7 +44,7 @@ public class Move : MonoBehaviour
 
 
     [Header("References")]
-    [SerializeField] SO_CharacterData defaultCharacter;
+    [SerializeField] SO_CharacterData defaultChar;
     public GameObject ability;
     [SerializeField] GameObject mainCamObj;
     [SerializeField] Transform playerObj;
@@ -89,9 +89,9 @@ public class Move : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        // Set Default Character
-        UpdateStats(defaultCharacter);
-
+        // OnStart disable this movement
+        UpdateStats(defaultChar);
+        SwitchCameraView(1);
     }
 
     void FixedUpdate(){
@@ -146,7 +146,7 @@ public class Move : MonoBehaviour
         }
         //hard rotation for combat
         else if(camState == CameraState.Combat){
-            Vector3 combatViewDir = combatLookAt.position - new Vector3(mainCamObj.transform.position.x, combatLookAt.position.y, mainCamObj.transform.position.z);
+            Vector3 combatViewDir = combatLookAt.position - new Vector3(combatCam.transform.position.x, combatLookAt.position.y, combatCam.transform.position.z);
             orientation.forward = combatViewDir.normalized;
 
             playerObj.forward = combatViewDir.normalized;
@@ -183,7 +183,7 @@ public class Move : MonoBehaviour
         basicCam.SetActive(false);
         topDownCam.SetActive(false);
         combatCam.SetActive(false);
-        if(num > 3){
+        if(num > 2){
             camNum = 1;
             num = 1;
         }
@@ -241,7 +241,7 @@ public class Move : MonoBehaviour
         SpeedControl();
         RotatePlayer();
         MoveStateHandler();
-        // Debug.Log(this);
+
         if(grounded)
             rb.drag = groundDrag;
         else

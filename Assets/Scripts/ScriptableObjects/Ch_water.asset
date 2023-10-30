@@ -17,6 +17,8 @@ MonoBehaviour:
   ability: {fileID: 5091838690962351652, guid: 1ee9d8b56f285c14b8f6df6d2bfbbca9, type: 3}
   abilityAim: {fileID: 2633617068978898858, guid: aa7131035b9a57546a7b776543a13832,
     type: 3}
+  preActiveMat: {fileID: 2100000, guid: 4c19a0c9a82d8db4b87d69299199f710, type: 2}
+  activeMat: {fileID: 0}
   changeChar: 51
   walkSpeed: 5
   sprintSpeed: 5
